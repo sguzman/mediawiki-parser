@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Schema {
     #[serde(rename = "elementFormDefault")]
     pub element_form_default: String,
@@ -20,14 +20,14 @@ pub struct Schema {
     pub simple_type: SimpleType,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Annotation {
     #[serde(rename = "$text")]
     pub text: Option<String>,
     pub documentation: Documentation,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Documentation {
     #[serde(rename = "lang")]
     pub xml_lang: String,
@@ -35,7 +35,7 @@ pub struct Documentation {
     pub text: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ComplexType {
     pub name: String,
     #[serde(rename = "$text")]
@@ -46,7 +46,7 @@ pub struct ComplexType {
     pub simple_content: Option<SimpleContent>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ComplexTypeAttribute {
     pub name: Option<String>,
     #[serde(rename = "ref")]
@@ -57,7 +57,7 @@ pub struct ComplexTypeAttribute {
     pub attribute_use: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Sequence {
     #[serde(rename = "$text")]
     pub text: Option<String>,
@@ -65,7 +65,7 @@ pub struct Sequence {
     pub element: Vec<SequenceElement>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Choice {
     #[serde(rename = "maxOccurs")]
     pub max_occurs: String,
@@ -76,14 +76,14 @@ pub struct Choice {
     pub element: Vec<ChoiceElement>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ChoiceElement {
     pub name: String,
     #[serde(rename = "type")]
     pub element_type: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SequenceElement {
     #[serde(rename = "maxOccurs")]
     pub max_occurs: Option<String>,
@@ -94,14 +94,14 @@ pub struct SequenceElement {
     pub element_type: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SimpleContent {
     #[serde(rename = "$text")]
     pub text: Option<String>,
     pub extension: Extension,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Extension {
     pub base: String,
     #[serde(rename = "$text")]
@@ -109,7 +109,7 @@ pub struct Extension {
     pub attribute: ExtensionAttribute,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ExtensionAttribute {
     pub default: Option<String>,
     pub name: Option<String>,
@@ -121,21 +121,21 @@ pub struct ExtensionAttribute {
     pub attribute_use: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SchemaElement {
     pub name: String,
     #[serde(rename = "type")]
     pub element_type: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Import {
     pub namespace: String,
     #[serde(rename = "schemaLocation")]
     pub schema_location: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SimpleType {
     pub name: String,
     #[serde(rename = "$text")]
@@ -143,7 +143,7 @@ pub struct SimpleType {
     pub restriction: Restriction,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Restriction {
     pub base: String,
     #[serde(rename = "$text")]
@@ -151,7 +151,7 @@ pub struct Restriction {
     pub enumeration: Vec<Enumeration>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Enumeration {
     pub value: String,
 }

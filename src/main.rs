@@ -21,7 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     // Add your validation logic here
                 }
                 Err(e) => {
-                    println!("Failed to parse {}: {:?}", path.display(), e);
+                    println!("Failed to parse {}: {:#?}", path.display(), e);
                 }
             }
         }
