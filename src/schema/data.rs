@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq)]
 pub struct Mediawiki {
     pub version: String,
     #[serde(rename = "lang")]
@@ -15,7 +15,7 @@ pub struct Mediawiki {
     pub siteinfo: Siteinfo,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq)]
 pub struct Siteinfo {
     #[serde(rename = "$text")]
     pub text: Option<String>,
@@ -27,14 +27,14 @@ pub struct Siteinfo {
     pub sitename: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq)]
 pub struct Namespaces {
     #[serde(rename = "$text")]
     pub text: Option<String>,
     pub namespace: Vec<Namespace>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, Hash, Eq, PartialEq)]
 pub struct Namespace {
     pub case: String,
     pub key: String,
