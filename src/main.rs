@@ -1,30 +1,65 @@
 // src/main.rs
-use crate::schema::data::Mediawiki as top;
-use serde_xml_rs::from_str;
-use std::fs;
-use std::path::Path;
+use crate::schema::data::Mediawiki;
+use indicatif::{ProgressBar, ProgressStyle};
+use quick_xml::events::Event;
+use quick_xml::Reader;
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
 mod schema {
     pub mod data;
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let resource_dir = Path::new("resources");
-    for entry in fs::read_dir(resource_dir)? {
-        let entry = entry?;
-        let path = entry.path();
-        if path.is_file() {
-            let content = fs::read_to_string(&path)?;
-            match from_str::<top>(&content) {
-                Ok(mediawiki) => {
-                    println!("Parsed successfully: {:#?}", mediawiki);
-                    // Add your validation logic here
-                }
-                Err(e) => {
-                    println!("Failed to parse {}: {:#?}", path.display(), e);
+    let file_path = "resources/example.xml";
+    let file = File::open(file_path)?;
+    let metadata = file.metadata()?;
+    let file_size = metadata.len();
+
+    let pb = ProgressBar::new(file_size);
+    let style = ProgressStyle::default_bar()
+        .template("{msg} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {bytes}/{total_bytes} ({eta})")
+        .unwrap()
+        .progress_chars("#>-");
+    pb.set_style(style);
+
+    let reader = BufReader::new(file);
+    let mut xml_reader = Reader::from_reader(reader);
+    xml_reader.trim_text(true);
+
+    let mut buf = Vec::new();
+    let mut bytes_read = 0;
+
+    loop {
+        match xml_reader.read_event(&mut buf) {
+            Ok(Event::Start(ref e)) => {
+                // Handle start elements here
+                if e.name() == b"page" {
+                    // Add logic for handling `page` element if needed
                 }
             }
+            Ok(Event::End(ref e)) => {
+                // Handle end elements here
+                if e.name() == b"mediawiki" {
+                    break;
+                }
+            }
+            Ok(Event::Eof) => break,
+            Ok(_) => (),
+            Err(e) => {
+                pb.println(format!(
+                    "Error at position {}: {:?}",
+                    xml_reader.buffer_position(),
+                    e
+                ));
+                break;
+            }
         }
+        bytes_read = xml_reader.buffer_position() as u64;
+        pb.set_position(bytes_read);
+        buf.clear();
     }
+
+    pb.finish_with_message("Processing complete");
     Ok(())
 }
