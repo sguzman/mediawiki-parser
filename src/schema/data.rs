@@ -155,5 +155,3 @@ pub struct Restriction {
 pub struct Enumeration {
     pub value: String,
 }
-
-
