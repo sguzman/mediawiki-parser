@@ -1,0 +1,10 @@
+<mediawiki xmlns="https://www.mediawiki.org/xml/export-0.3/" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="https://www.mediawiki.org/xml/export-0.3/ https://www.mediawiki.org/xml/export-0.3.xsd" 
+version="0.3" 
+xml:lang="en">
+  <siteinfo>...</siteinfo>
+  <page>...</page>
+  <page>...</page>
+  <page>...</page>
+</mediawiki>
