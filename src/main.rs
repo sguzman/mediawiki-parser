@@ -1,5 +1,5 @@
 // src/main.rs
-use crate::schema::data::Schema as top;
+use crate::schema::data::Mediawiki as top;
 use serde_xml_rs::from_str;
 use std::fs;
 use std::path::Path;
